@@ -22,7 +22,7 @@ export const modelSourceSchema = z.object({
 export const workflowStepSchema = z.object({
   id: z.string(),
   type: z.enum(["prompt_agent", "call_tool", "set_variable"]),
-  config: z.record(z.any())
+  config: z.record(z.string(), z.any())
 });
 
 export const workflowSchema = z.object({
@@ -35,8 +35,8 @@ export const workflowSchema = z.object({
 export const uiComponentSchema = z.object({
   id: z.string(),
   type: z.enum(["text", "button", "input", "toggle", "card", "table"]),
-  props: z.record(z.any()).default({}),
-  binding: z.record(z.any()).optional()
+  props: z.record(z.string(), z.any()).default({}),
+  binding: z.record(z.string(), z.any()).optional()
 });
 
 export const uiLayoutSchema = z.object({
