@@ -9,10 +9,10 @@
     "build": "tsup src/index.ts --dts --format esm,cjs"
   },
   "dependencies": {
-    "zod": "^3.24.1"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "tsup": "^8.3.5",
+    "tsup": "^9.0.0",
     "typescript": "^5.7.3"
   }
 }

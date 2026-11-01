@@ -25,7 +25,7 @@ It is designed for secure tool use, modular growth, and UI replaceability.
 
 ## Prerequisites
 - Windows 11
-- Node.js 20+
+- Node.js 24.11+ LTS (recommended), or Node.js 22.18+ LTS
 - Python 3.10+ (3.11+ recommended)
 - Optional but recommended for local models: Ollama (`https://ollama.com/download/windows`)
 
