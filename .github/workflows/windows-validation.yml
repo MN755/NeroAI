@@ -34,6 +34,9 @@ jobs:
       - name: Core ESM and CommonJS schema regressions
         run: npm --workspace packages/core test
       - name: Build libraries, renderer, and NSIS installer
-        run: npm run build
+        run: |
+          npm --workspace packages/core run build
+          npm --workspace packages/plugins run build
+          npm --workspace apps/desktop run build -- --publish never
       - name: Launch packaged desktop and backend
         run: node scripts/windows-smoke.cjs
