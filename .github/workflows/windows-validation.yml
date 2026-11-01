@@ -1,0 +1,39 @@
+name: Windows validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11'
+      - name: Install backend dependencies
+        run: |
+          python -m venv apps/backend/.venv
+          apps/backend/.venv/Scripts/python -m pip install -r apps/backend/requirements.txt
+      - name: Backend tests including Windows DPAPI
+        run: npm run test:backend
+      - name: Install Node dependencies
+        run: npm ci
+      - name: Core ESM and CommonJS schema regressions
+        run: npm --workspace packages/core test
+      - name: Build libraries, renderer, and NSIS installer
+        run: npm run build
+      - name: Launch packaged desktop and backend
+        run: node scripts/windows-smoke.cjs
